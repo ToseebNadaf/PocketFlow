@@ -1,0 +1,10 @@
+{
+  "name": "@repo/pocketflow",
+  "version": "1.0.0",
+  "dependencies": {
+    "@prisma/client": "^6.0.1"
+  },
+  "exports": {
+    "./client": "./index.ts"
+  }
+}
