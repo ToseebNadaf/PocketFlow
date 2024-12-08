@@ -1,11 +1,12 @@
-import React from 'react'
+"use client";
+import { useBalance } from "@repo/store/balance";
 
-type Props = {}
+type Props = {};
 
-const page = (props: Props) => {
-  return (
-    <div>page</div>
-  )
-}
+const Page = (props: Props) => {
+  const balance = useBalance();
 
-export default page
+  return <div>page {balance}</div>;
+};
+
+export default Page;

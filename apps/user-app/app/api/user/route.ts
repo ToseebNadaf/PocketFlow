@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import db from "@repo/pocketflow/client";
+import db from "@repo/db/client";
 
 export const GET = async () => {
   try {
@@ -7,7 +7,7 @@ export const GET = async () => {
       data: {
         email: "abc@gmail.com",
         number: "123456789",
-        password: "87654321"
+        password: "87654321",
       },
     });
     return NextResponse.json({
