@@ -1,25 +1,35 @@
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import db from "@repo/db/client";
+import { authOptions } from "../../lib/auth";
 
 export const GET = async () => {
-  try {
-    await db.user.create({
-      data: {
-        email: "abc@gmail.com",
-        number: "123456789",
-        password: "87654321",
-      },
-    });
-    return NextResponse.json({
-      message: "User created successfully",
-    });
-  } catch (error) {
-    console.error(error);
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
     return NextResponse.json(
-      {
-        message: "Failed to create user",
-      },
-      { status: 500 }
+      { error: "No session found. Please log in." },
+      { status: 401 }
     );
   }
+
+  if (!session.user) {
+    return NextResponse.json(
+      { error: "User information is missing in the session." },
+      { status: 400 }
+    );
+  }
+
+  if (session.user) {
+    return NextResponse.json({
+      user: session.user,
+    });
+  }
+  return NextResponse.json(
+    {
+      message: "You are not logged in",
+    },
+    {
+      status: 403,
+    }
+  );
 };
