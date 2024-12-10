@@ -4,21 +4,6 @@ import { authOptions } from "../../lib/auth";
 
 export const GET = async () => {
   const session = await getServerSession(authOptions);
-
-  if (!session) {
-    return NextResponse.json(
-      { error: "No session found. Please log in." },
-      { status: 401 }
-    );
-  }
-
-  if (!session.user) {
-    return NextResponse.json(
-      { error: "User information is missing in the session." },
-      { status: 400 }
-    );
-  }
-
   if (session.user) {
     return NextResponse.json({
       user: session.user,
